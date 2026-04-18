@@ -1,5 +1,4 @@
 using System.Linq;
-using TreeEditor;
 using UnityEngine;
 
 public class RopeGenerator : MonoBehaviour

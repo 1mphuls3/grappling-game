@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private GameObject hookPrefab;
+    [SerializeField] private VerletRope rope;
 
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
@@ -124,6 +125,13 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+
+        Vector2 anchor = rope.wrapPoint;
+        float ropeLen = rope.numNodes * rope.nodeDist;
+        float clampX = Mathf.Clamp(transform.position.x, anchor.x - ropeLen, anchor.x + ropeLen);
+        float clampY = Mathf.Clamp(transform.position.y, anchor.y - ropeLen, anchor.y + ropeLen);
+
+        transform.position = new Vector3(clampX, clampY, transform.position.z);
     }
     private void Jump(InputAction.CallbackContext context)
     {
